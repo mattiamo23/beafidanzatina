@@ -6,7 +6,7 @@ on:
 
 # Permissions needed for deploying to GitHub Pages
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -35,3 +35,4 @@ jobs:
           folder: dist
           clean: true
           commit-message: "chore: deploy site (GitHub Actions)"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
