@@ -1,4 +1,6 @@
+
 import '../src/style.css'
+// SVG ora serviti da public/assets
 
 // --- content & assets ---
 const phrases = [
