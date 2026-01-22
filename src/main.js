@@ -50,57 +50,92 @@ function updateSweetMeter(){
   sweetMeterInner.style.width = Math.min(100, sweetLevel) + '%'
 }
 
+
 magicBtn.addEventListener('click', ()=>{
   const p = pickPhrase()
   animatePhrase(p)
   sweetLevel += 8 + Math.floor(Math.random()*8)
   updateSweetMeter()
   magicBtn.classList.add('pulse-once')
+  // Effetto: gatto animato che salta dal bottone
+  const rect = magicBtn.getBoundingClientRect()
+  const cat = document.createElement('img')
+  cat.src = '/assets/cat-real.svg'
+  cat.alt = 'Gatto magico'
+  cat.className = 'magic-cat-effect'
+  cat.style.position = 'fixed'
+  cat.style.left = (rect.left + rect.width/2 - 32) + 'px'
+  cat.style.top = (rect.top - 48) + 'px'
+  cat.style.width = '64px'
+  cat.style.height = '64px'
+  cat.style.pointerEvents = 'none'
+  document.body.appendChild(cat)
+  setTimeout(()=>{
+    cat.classList.add('jump')
+    setTimeout(()=>cat.remove(), 1200)
+  }, 30)
   setTimeout(()=>magicBtn.classList.remove('pulse-once'), 600)
   // show cat modal occasionally
   if(Math.random() < 0.16) showCatModal()
 })
+
 
 randomBtn.addEventListener('click', ()=>{
   const extra = Math.random() < 0.6 ? pickPhrase() : 'Ti penso sempre 💭'
   animatePhrase(extra)
   sweetLevel += 4
   updateSweetMeter()
+  // Frase visibile più a lungo
+  phraseEl.classList.remove('opacity-0')
+  phraseEl.style.transition = 'opacity 0.7s'
+  setTimeout(()=>{ phraseEl.style.opacity = 0 }, 3200)
   if(Math.random() < 0.22) showCatModal()
 })
+
 
 colorBtn.addEventListener('click', ()=>{
   const body = document.body
   const variants = [
     'bg-gradient-to-b from-yellow-50 via-yellow-100 to-yellow-50',
-    'bg-gradient-to-b from-pink-50 via-yellow-50 to-yellow-100',
-    'bg-gradient-to-b from-yellow-50 via-lime-50 to-yellow-50'
+    'bg-gradient-to-b from-yellow-200 via-yellow-100 to-yellow-50',
+    'bg-gradient-to-b from-yellow-100 via-yellow-200 to-yellow-100',
+    'bg-gradient-to-b from-yellow-50 via-yellow-300 to-yellow-100',
+    'bg-gradient-to-b from-yellow-100 via-yellow-300 to-yellow-200',
+    'bg-gradient-to-b from-yellow-50 via-yellow-100 to-yellow-200'
   ]
-  const current = variants.indexOf(body.className.split(' ').slice(0,3).join(' '))
+  let current = variants.findIndex(v => body.className.includes(v.split(' ')[1]))
+  if(current === -1) current = 0
   const next = (current + 1) % variants.length
   body.className = variants[next] + ' text-slate-800'
 })
 
+
 emojiBtn.addEventListener('click', ()=>{
-  const emoji = ['😺','💛','🌼','✨','😘'][Math.floor(Math.random()*5)]
-  spawnEmoji(emoji)
+  // Mostra solo una stella per più tempo
+  spawnEmoji('⭐', 2600)
 })
+
 
 complimentBtn.addEventListener('click', ()=>{
   animatePhrase('Sei incredibile, non dimenticarlo 💌')
   sweetLevel += 6
   updateSweetMeter()
+  // Frase visibile più a lungo
+  phraseEl.classList.remove('opacity-0')
+  phraseEl.style.transition = 'opacity 0.7s'
+  setTimeout(()=>{ phraseEl.style.opacity = 0 }, 3200)
 })
 
 // --- emoji helper ---
-function spawnEmoji(ch){
+
+function spawnEmoji(ch, duration=2600){
   const el = document.createElement('div')
   el.textContent = ch
   el.className = 'emoji-pop text-2xl'
   el.style.left = (20 + Math.random()*60)+'%'
   el.style.bottom = '20px'
   document.body.appendChild(el)
-  setTimeout(()=>el.remove(), 1500)
+  setTimeout(()=>el.remove(), duration)
 }
 
 // --- modal ---
@@ -199,6 +234,10 @@ window.addEventListener('load', ()=>{
 // --- Cat minigame ---
 const gameArea = document.getElementById('game-area')
 const catSprite = document.getElementById('cat-sprite')
+const minigameSprites = [
+  '/assets/cat-real.svg',
+  '/assets/yoshi.svg'
+]
 const gameStart = document.getElementById('game-start')
 const gameReset = document.getElementById('game-reset')
 const gameTimerEl = document.getElementById('game-timer')
@@ -218,6 +257,10 @@ if(gameBestEl) gameBestEl.textContent = storedBest
 
 function placeCatRandom(){
   if(!gameArea || !catSprite) return
+  // Alterna sprite tra gatto e Yoshi
+  const sprite = minigameSprites[Math.floor(Math.random()*minigameSprites.length)]
+  catSprite.src = sprite
+  catSprite.alt = sprite.includes('yoshi') ? 'Yoshi' : 'Gatto realistico'
   const areaRect = gameArea.getBoundingClientRect()
   const catW = catSprite.offsetWidth || 64
   const catH = catSprite.offsetHeight || 64

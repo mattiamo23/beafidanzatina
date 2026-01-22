@@ -1,3 +1,12 @@
+.magic-cat-effect {
+  z-index: 9999;
+  transition: transform 1.1s cubic-bezier(.4,1.6,.6,1), opacity 1.1s;
+  opacity: 1;
+}
+.magic-cat-effect.jump {
+  transform: translateY(-120px) scale(1.25) rotate(-12deg);
+  opacity: 0;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
