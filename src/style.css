@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --yellow-light: #fff8e6;
+  --yellow-main: #f7c248;
+  --accent: #f0b400;
+}
+
+html,body,#app{height:100%}
+body{font-family: Poppins, ui-sans-serif, system-ui;}
+
+.btn-yellow{
+  background: linear-gradient(180deg, #ffd95a, #f7c248);
+  color: #3b2f0b;
+  box-shadow: 0 6px 18px rgba(240,180,0,0.14);
+}
+
+/* Modal */
+#modal img{border-radius:12px}
+#modal[aria-hidden="false"]{display:flex}
+
+/* Emoji float animation */
+@keyframes floatUp{
+  0%{transform: translateY(0) scale(1); opacity:1}
+  100%{transform: translateY(-160px) scale(1.2); opacity:0}
+}
+.emoji-pop{position:absolute; animation: floatUp 1400ms ease-out forwards}
+
+/* small pulse animation for buttons */
+.pulse-once{animation: pulse 550ms ease-out}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+
+/* responsive tweaks */
+@media (max-width: 640px){
+  #phrase{font-size:1rem}
+}
+
+/* Game styles */
+#game-area{min-height:10rem}
+#game-area img#cat-sprite{transition:left 220ms ease, top 220ms ease, transform 220ms ease}
+#game-area .hit{transform:scale(1.12)}
+#game-area .touch-none{touch-action:none}
+#game-start[disabled]{opacity:0.7; transform:translateY(0); cursor:default}
+
+/* make cat bigger on small screens for easier touch */
+@media (max-width:420px){
+  #cat-sprite{width:72px; height:72px}
+}
+
+/* small visual pop for hit */
+@keyframes catPop{0%{transform:scale(1)}40%{transform:scale(1.22)}100%{transform:scale(1)}}
+.cat-pop{animation:catPop 300ms ease-out}
+
