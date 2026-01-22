@@ -83,15 +83,34 @@ magicBtn.addEventListener('click', ()=>{
 })
 
 
+
 randomBtn.addEventListener('click', ()=>{
   const extra = Math.random() < 0.6 ? pickPhrase() : 'Ti penso sempre 💭'
   animatePhrase(extra)
   sweetLevel += 4
   updateSweetMeter()
+  // Effetto Mario animato
+  const rect = randomBtn.getBoundingClientRect()
+  const mario = document.createElement('img')
+  mario.src = '/assets/mario.png'
+  mario.alt = 'Mario Sorpresa'
+  mario.className = 'magic-mario-effect'
+  mario.style.position = 'fixed'
+  mario.style.left = (rect.left + rect.width/2 - 48) + 'px'
+  mario.style.top = (rect.top - 64) + 'px'
+  mario.style.width = '96px'
+  mario.style.height = '96px'
+  mario.style.pointerEvents = 'none'
+  mario.style.opacity = '1'
+  document.body.appendChild(mario)
+  setTimeout(()=>{
+    mario.classList.add('jump')
+    setTimeout(()=>mario.remove(), 1800)
+  }, 30)
   // Frase visibile più a lungo
   phraseEl.classList.remove('opacity-0')
   phraseEl.style.transition = 'opacity 0.7s'
-  setTimeout(()=>{ phraseEl.style.opacity = 0 }, 3200)
+  setTimeout(()=>{ phraseEl.style.opacity = 0 }, 4000)
   if(Math.random() < 0.22) showCatModal()
 })
 
@@ -113,9 +132,14 @@ colorBtn.addEventListener('click', ()=>{
 })
 
 
+
 emojiBtn.addEventListener('click', ()=>{
-  // Mostra solo una stella per più tempo
-  spawnEmoji('⭐', 2600)
+  // Stella molto grande
+  spawnEmoji('⭐', 4200, '4.5rem')
+  // Cuore in dissolvenza
+  setTimeout(()=>{
+    spawnEmoji('❤️', 3200, '3.2rem', true)
+  }, 1200)
 })
 
 
@@ -131,14 +155,26 @@ complimentBtn.addEventListener('click', ()=>{
 
 // --- emoji helper ---
 
-function spawnEmoji(ch, duration=2600){
+
+function spawnEmoji(ch, duration=2600, fontSize='2.5rem', fade=false){
   const el = document.createElement('div')
   el.textContent = ch
-  el.className = 'emoji-pop text-2xl'
+  el.className = 'emoji-pop'
+  el.style.fontSize = fontSize
   el.style.left = (20 + Math.random()*60)+'%'
   el.style.bottom = '20px'
-  document.body.appendChild(el)
-  setTimeout(()=>el.remove(), duration)
+  if(fade){
+    el.style.opacity = '0'
+    el.animate([
+      {opacity:0, transform:'translateY(0) scale(1.2)'},
+      {opacity:1, transform:'translateY(-40px) scale(1.3)'},
+      {opacity:0, transform:'translateY(-120px) scale(1.1)'}
+    ], {duration:duration, easing:'ease-in-out'})
+    setTimeout(()=>el.remove(), duration)
+  } else {
+    document.body.appendChild(el)
+    setTimeout(()=>el.remove(), duration)
+  }
 }
 
 // --- modal ---
