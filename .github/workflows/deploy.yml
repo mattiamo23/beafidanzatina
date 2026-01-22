@@ -4,6 +4,12 @@ on:
   push:
     branches: [ main ]
 
+# Permissions needed for deploying to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
