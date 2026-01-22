@@ -53,16 +53,17 @@ function updateSweetMeter(){
 }
 
 
+
 magicBtn.addEventListener('click', ()=>{
   const p = pickPhrase()
   animatePhrase(p)
   sweetLevel += 8 + Math.floor(Math.random()*8)
   updateSweetMeter()
   magicBtn.classList.add('pulse-once')
-  // Effetto: gatto animato che salta dal bottone
+  // Effetto: gatto nero stilizzato animato
   const rect = magicBtn.getBoundingClientRect()
   const cat = document.createElement('img')
-  cat.src = '/assets/cat-real.svg'
+  cat.src = '/assets/cat.svg'
   cat.alt = 'Gatto magico'
   cat.className = 'magic-cat-effect'
   cat.style.position = 'fixed'
