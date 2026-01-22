@@ -237,7 +237,7 @@ window.addEventListener('load', ()=>{
 const gameArea = document.getElementById('game-area')
 const catSprite = document.getElementById('cat-sprite')
 const minigameSprites = [
-  '/assets/cat-real.svg',
+  '/assets/cat.svg',
   '/assets/yoshi.svg'
 ]
 const gameStart = document.getElementById('game-start')
