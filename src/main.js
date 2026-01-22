@@ -92,7 +92,7 @@ randomBtn.addEventListener('click', ()=>{
   // Effetto Mario animato
   const rect = randomBtn.getBoundingClientRect()
   const mario = document.createElement('img')
-  mario.src = '/assets/mario.png'
+  mario.src = '/assets/mario.svg'
   mario.alt = 'Mario Sorpresa'
   mario.className = 'magic-mario-effect'
   mario.style.position = 'fixed'
