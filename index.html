@@ -2,108 +2,226 @@
 <html lang="it">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#F7DC6F" />
-    <title>beafidanzatina 🌼</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+    <meta name="theme-color" content="#FCD34D" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Per Bea Fidanzatina ⭐</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="/assets/logo-BlCPvbVA.svg">
-    <script type="module" crossorigin src="/assets/index-CYFhZkgA.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CQB_Q6UC.css">
+    <script type="module" crossorigin src="/assets/index-etWUjLOu.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cttn3hCw.css">
   </head>
-  <body class="antialiased bg-gradient-to-b from-yellow-50 via-yellow-100 to-yellow-50 text-slate-800">
-    <div id="app" class="min-h-screen flex flex-col items-center px-4 py-8">
-      <header class="w-full max-w-3xl flex items-center justify-between mb-6">
-        <div class="flex items-center gap-3">
-          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHgyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRkZFRDlBIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGN0MyNDgiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjE4IiBmaWxsPSJ1cmwoI2cpIiAvPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIwLDIwKSI+CiAgICA8cGF0aCBkPSJNNDAgOEMzMiA4IDI0IDE0IDI0IDI0YzAgMTggNDAgMzYgNDAgMzZzNC0yMCA0LTI4QzY4IDE0IDU2IDggNDAgOHoiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuOTYiLz4KICAgIDxjaXJjbGUgY3g9IjcyIiBjeT0iMjAiIHI9IjYiIGZpbGw9IiNGRkY0RDYiIC8+CiAgICA8dGV4dCB4PSI2IiB5PSI5NiIgZmlsbD0iIzNiMmYwYiIgZm9udC1mYW1pbHk9IlBvcHBpbnMsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI2MDAiIGZvbnQtc2l6ZT0iMTAiPkJlYTwvdGV4dD4KICA8L2c+Cjwvc3ZnPg==" alt="Logo bea" class="w-12 h-12" />
-          <div>
-            <h1 class="text-2xl md:text-3xl font-bold" id="site-title">beafidanzatina</h1>
-            <p class="text-sm text-slate-600">Un posto dolce & divertente per la mia Bea 💛</p>
-          </div>
+  <body class="antialiased bg-gradient-to-br from-yellow-300 via-yellow-200 to-amber-300 text-gray-800 overflow-x-hidden">
+    
+    <!-- Floating aerial silks in background -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div class="aerial-silk silk-1"></div>
+      <div class="aerial-silk silk-2"></div>
+      <div class="aerial-silk silk-3"></div>
+    </div>
+
+    <!-- Floating cats -->
+    <div id="floating-cats" class="fixed inset-0 pointer-events-none z-10"></div>
+
+    <div id="app" class="min-h-screen relative z-20 px-4 py-8">
+      
+      <!-- Hero Section -->
+      <header class="text-center mb-8 md:mb-12 relative px-2">
+        <div class="inline-block relative">
+          <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-amber-600 mb-3 font-['Fredoka'] animate-bounce-slow leading-tight">
+            Ehi tu!
+          </h1>
+          <div class="absolute -top-4 -right-4 md:-top-6 md:-right-6 text-2xl md:text-4xl animate-spin-slow">⭐</div>
+          <div class="absolute -bottom-3 -left-4 md:-bottom-4 md:-left-6 text-2xl md:text-3xl animate-bounce">✨</div>
         </div>
-        <nav class="text-sm space-x-4">
-          <a href="#magic" class="text-yellow-700 font-semibold hover:underline">Bottone Magico</a>
-          <a href="#giochi" class="text-yellow-700 font-semibold hover:underline">Giochi</a>
-          <a href="#cat-game" class="text-yellow-700 font-semibold hover:underline">Minigioco</a>
-        </nav>
+        <p class="text-base sm:text-lg md:text-2xl text-gray-700 font-medium max-w-2xl mx-auto mt-4 px-4">
+          Questa pagina è dedicata a te, regina dei tessuti aerei, gamer di Mario 64 DS e amante della Mel 🐱
+        </p>
       </header>
 
-      <main class="w-full max-w-3xl bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg p-6 md:p-10">
-        <section id="intro" class="mb-6 text-center">
-          <h2 class="text-xl md:text-2xl font-semibold">Ciao Bea! 🌼</h2>
-          <p class="mt-2 text-slate-600">Questo sito è fatto con tanto amore: premi i bottoni, gioca e divertiti ❤️</p>
-        </section>
-
-        <section id="magic" class="mb-6">
-          <h3 class="font-semibold text-lg mb-3">Bottone Magico</h3>
-          <div class="flex flex-col md:flex-row items-stretch gap-4">
-            <div class="flex-1 p-4 rounded-xl bg-yellow-50 border border-yellow-100">
-              <div id="phrase" class="min-h-[72px] flex items-center justify-center text-center text-slate-700 text-lg px-4">Premi il bottone per una frase dolce!</div>
-              <div class="mt-4 flex gap-3 justify-center">
-                <button id="magic-btn" class="btn-yellow px-4 py-2 rounded-full font-semibold shadow hover:scale-105 transition-transform">Fa una magia ✨</button>
-                <button id="random-btn" class="px-4 py-2 rounded-full border border-slate-200 hover:bg-yellow-50 transition">Sorpresa</button>
+      <!-- Main Container -->
+      <div class="max-w-6xl mx-auto space-y-8">
+        
+        <!-- Mel Zone -->
+        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden group active:scale-[0.98] md:hover:scale-[1.02] transition-transform">
+          <div class="absolute top-0 right-0 text-5xl md:text-8xl opacity-10 group-hover:animate-wiggle">🐱</div>
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-yellow-700 font-['Fredoka']">La Divina Mel 😻</h2>
+          <div class="grid md:grid-cols-2 gap-4 md:gap-6">
+            <div>
+              <p class="text-base sm:text-lg mb-4 leading-relaxed">
+                La gattina più figa del pianeta! Mel è qui per giudicarti silenziosamente mentre fai aerial... o mentre giochi a Mario.
+              </p>
+              <button id="mel-btn" class="btn-primary mb-3 w-full md:w-auto text-base sm:text-lg">
+                Evoca Mel Volante 🐱✨
+              </button>
+              <div id="mel-counter" class="text-sm sm:text-base text-gray-600 text-center md:text-left">Mel evocate: <span class="font-bold text-yellow-700">0</span></div>
+            </div>
+            <div class="flex items-center justify-center mt-4 md:mt-0">
+              <div id="mel-stage" class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 relative">
+                <div class="mel-placeholder">😺</div>
               </div>
             </div>
+          </div>
+        </section>
 
-            <div class="w-full md:w-64 p-4 rounded-xl bg-yellow-100/60 border border-yellow-200 flex flex-col items-center justify-center gap-3">
-              <div class="text-sm text-slate-700">Livello di dolcezza</div>
-              <div id="sweet-meter" class="w-full bg-yellow-200 rounded-full h-3 overflow-hidden">
-                <div class="h-full bg-yellow-400/80 transition-all" style="width:40%"></div>
+        <!-- Aerial Tricks Counter -->
+        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-yellow-700 font-['Fredoka']">Aerial Tricks Simulator 🎪</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+            <button class="trick-btn" data-trick="Inversion">
+              <span class="text-4xl sm:text-3xl mb-2">🤸‍♀️</span>
+              <span class="font-semibold text-base sm:text-sm md:text-base">Inversion</span>
+            </button>
+            <button class="trick-btn" data-trick="Drop">
+              <span class="text-4xl sm:text-3xl mb-2">🎪</span>
+              <span class="font-semibold text-base sm:text-sm md:text-base">Drop</span>
+            </button>
+            <button class="trick-btn" data-trick="Splits">
+              <span class="text-4xl sm:text-3xl mb-2">⭐</span>
+              <span class="font-semibold text-base sm:text-sm md:text-base">Splits</span>
+            </button>
+          </div>
+          <div class="mt-4 md:mt-6 text-center">
+            <div class="text-sm sm:text-base text-gray-600 mb-2">Tricks completati oggi:</div>
+            <div id="tricks-score" class="text-4xl sm:text-5xl font-bold text-yellow-600">0</div>
+          </div>
+        </section>
+
+        <!-- Mario 64 DS Mini Game -->
+        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl" id="mario-game">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-yellow-700 font-['Fredoka']">Mario 64 DS: Raccogli le Stelle! ⭐</h2>
+          <div class="bg-gradient-to-b from-sky-400 to-blue-500 rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 relative overflow-hidden" style="height: 350px; max-height: 50vh;">
+            <div id="mario-canvas" class="relative w-full h-full touch-none">
+              <div id="mario-player" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-4xl sm:text-5xl cursor-move touch-none">
+                🍄
               </div>
-              <small class="text-xs text-slate-500 mt-2">Più premi, più sale 💛</small>
+              <div id="stars-container" class="absolute inset-0"></div>
+              <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-white/90 px-2 py-1 sm:px-4 sm:py-2 rounded-lg shadow">
+                <div class="text-xs sm:text-sm text-gray-600">Stelle raccolte:</div>
+                <div id="star-count" class="text-xl sm:text-3xl font-bold text-yellow-600">0 / 10</div>
+              </div>
+              <div class="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 px-2 py-1 sm:px-4 sm:py-2 rounded-lg shadow">
+                <div class="text-xs sm:text-sm text-gray-600">Tempo:</div>
+                <div id="game-timer" class="text-lg sm:text-2xl font-bold text-gray-800">30</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 md:mt-4 flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
+            <button id="start-game" class="btn-primary w-full sm:w-auto text-base sm:text-lg">Inizia Gioco! 🎮</button>
+            <button id="reset-game" class="btn-secondary w-full sm:w-auto text-base sm:text-lg">Reset</button>
+          </div>
+          <div class="mt-2 md:mt-3 text-center text-xs sm:text-sm text-gray-600">
+            Tocca e trascina Mario per raccogliere le stelle!
+          </div>
+        </section>
+
+        <!-- Tuna Hate Zone -->
+        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gradient-to-r from-red-100 to-orange-100 border-2 md:border-4 border-red-300">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-red-700 font-['Fredoka'] text-center md:text-left">⚠️ ZONA ANTI-TONNO ⚠️</h2>
+          <div class="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
+            <div>
+              <p class="text-base sm:text-lg mb-4 leading-relaxed">
+                Il tonno in scatola è ufficialmente BANDITO da questa pagina. Se provi a portarlo qui, verrà immediatamente trasformato in glitter.
+              </p>
+              <div class="space-y-2 sm:space-y-3">
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <span class="text-xl sm:text-2xl">🚫</span>
+                  <span class="text-sm sm:text-base">Tonno in scatola: <strong>VIETATO</strong></span>
+                </div>
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <span class="text-xl sm:text-2xl">🐟</span>
+                  <span class="text-sm sm:text-base">Odore di tonno: <strong>ESORCIZZATO</strong></span>
+                </div>
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <span class="text-xl sm:text-2xl">✨</span>
+                  <span class="text-sm sm:text-base">Alternative migliori: <strong>TUTTO IL RESTO</strong></span>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-4 md:mt-0">
+              <button id="ban-tuna-btn" class="btn-danger text-base sm:text-xl px-6 sm:px-8 py-3 sm:py-4 w-full md:w-auto">
+                Bandisci il Tonno! 🚫
+              </button>
+              <div id="tuna-banned" class="mt-3 md:mt-4 text-sm sm:text-base text-gray-600">Tonni banditi: <span class="font-bold">0</span></div>
             </div>
           </div>
         </section>
 
-        <section id="giochi" class="mb-6">
-          <h3 class="font-semibold text-lg mb-3">Giochi & divertimenti</h3>
-          <div class="grid grid-cols-2 gap-4">
-            <button id="color-btn" class="p-4 rounded-xl bg-yellow-200 hover:bg-yellow-300 transition">Cambia sfondo 🌈</button>
-            <button id="emoji-btn" class="p-4 rounded-xl bg-yellow-200 hover:bg-yellow-300 transition">Mostra emoji 😺</button>
-            <button id="confetti-btn" class="p-4 rounded-xl bg-yellow-200 hover:bg-yellow-300 transition">Lancia Confetti 🎉</button>
-            <button id="compliment-btn" class="p-4 rounded-xl bg-yellow-200 hover:bg-yellow-300 transition">Ricevi un complimento 💌</button>
+        <!-- Skincare & Yepoda Zone -->
+        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gradient-to-r from-pink-100 to-purple-100">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-purple-700 font-['Fredoka']">Skincare Queen 👑✨</h2>
+          <div class="grid md:grid-cols-2 gap-4 md:gap-6">
+            <div>
+              <p class="text-base sm:text-lg mb-4 leading-relaxed">
+                Yepoda mood sempre attivo! La routine skincare è sacra e nessuno può interromperla. Sheet mask on, stress off.
+              </p>
+              <div class="space-y-2 sm:space-y-3">
+                <button class="skincare-btn text-sm sm:text-base" data-product="Sheet Mask">
+                  <span class="text-xl sm:text-2xl mr-2">🎭</span> Sheet Mask
+                </button>
+                <button class="skincare-btn text-sm sm:text-base" data-product="Gua Sha">
+                  <span class="text-xl sm:text-2xl mr-2">💎</span> Gua Sha Session
+                </button>
+                <button class="skincare-btn text-sm sm:text-base" data-product="Eye Patches">
+                  <span class="text-xl sm:text-2xl mr-2">👀</span> Eye Patches
+                </button>
+                <button class="skincare-btn text-sm sm:text-base" data-product="Jade Roller">
+                  <span class="text-xl sm:text-2xl mr-2">🪷</span> Jade Roller
+                </button>
+              </div>
+            </div>
+            <div class="flex flex-col items-center justify-center mt-4 md:mt-0">
+              <div class="text-center mb-4 w-full">
+                <div class="text-xs sm:text-sm text-gray-600 mb-2">Glow Level</div>
+                <div class="relative w-full h-6 sm:h-8 bg-purple-200 rounded-full overflow-hidden">
+                  <div id="glow-meter" class="h-full bg-gradient-to-r from-pink-400 to-purple-500 transition-all duration-500 flex items-center justify-end pr-2" style="width: 0%">
+                    <span class="text-white text-xs font-bold">✨</span>
+                  </div>
+                </div>
+                <div id="glow-percentage" class="text-xl sm:text-2xl font-bold text-purple-600 mt-2">0%</div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section id="cat-game" class="mb-6">
-          <h3 class="font-semibold text-lg mb-3">Minigioco: Cattura il gatto nero 🖤</h3>
-          <div class="rounded-xl border border-yellow-100 bg-yellow-50 p-4">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-3">
-              <div class="text-sm">Tempo: <span id="game-timer" class="font-semibold">20</span>s</div>
-              <div class="text-sm">Punteggio: <span id="game-score" class="font-semibold">0</span></div>
-              <div class="text-sm">Record: <span id="game-best" class="font-semibold">0</span></div>
-            </div>
-            <div id="game-area" class="relative h-48 rounded-lg bg-yellow-100/70 overflow-hidden touch-pan-y">
-              <img id="cat-sprite" src="/assets/cat-real.svg" alt="Gatto realistico" class="absolute w-16 h-16 z-10 touch-none" style="display:none; transform-origin:center center;" />
-              <div id="game-overlay" class="absolute inset-0"></div>
-            </div>
-            <div class="mt-3 flex gap-3 justify-center">
-              <button id="game-start" class="btn-yellow px-5 py-2 rounded-full font-semibold shadow">Start</button>
-              <button id="game-reset" class="px-4 py-2 rounded-full border">Reset</button>
-            </div>
-            <p class="text-xs text-slate-500 mt-2">Tocca il gatto il più possibile entro il tempo. Ottimizzato per touch. 💛</p>
+        <!-- Fun Zone -->
+        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-4 md:mb-6 text-yellow-700 font-['Fredoka'] text-center">Fun Zone 🎉</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+            <button id="confetti-btn" class="fun-btn">
+              <span class="text-5xl sm:text-4xl mb-2">🎊</span>
+              <span class="font-semibold text-base sm:text-sm md:text-base">Confetti Esplosione</span>
+            </button>
+            <button id="rainbow-btn" class="fun-btn">
+              <span class="text-5xl sm:text-4xl mb-2">🌈</span>
+              <span class="font-semibold text-base sm:text-sm md:text-base">Rainbow Mode</span>
+            </button>
+            <button id="party-btn" class="fun-btn">
+              <span class="text-5xl sm:text-4xl mb-2">🎉</span>
+              <span class="font-semibold text-base sm:text-sm md:text-base">Party Time!</span>
+            </button>
           </div>
         </section>
 
-        <footer class="mt-6 text-center text-xs text-slate-500">Creato con amore — Per Bea 💛</footer>
-      </main>
-
-      <!-- Popup modal -->
-      <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden">
-        <div class="bg-white rounded-xl p-4 max-w-sm w-full shadow-lg">
-          <img id="modal-img" src="" alt="Gatti neri" class="w-full h-48 object-cover rounded-md mb-3" />
-          <div class="text-center">
-            <p class="font-semibold">Sono più belli della Mel?</p>
-            <div class="mt-3 flex gap-3 justify-center">
-              <button id="modal-yes" class="btn-yellow px-4 py-2 rounded-full">Sì 😻</button>
-              <button id="modal-no" class="px-4 py-2 rounded-full border" id="modal-no">No 😅</button>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none"></canvas>
+      <!-- Footer -->
+      <footer class="text-center mt-16 pb-8">
+        <p class="text-gray-600 text-sm">
+          Made with 💛 for the coolest girlfriend ever
+        </p>
+        <p class="text-gray-500 text-xs mt-2">
+          No tuna was harmed in the making of this website
+        </p>
+      </footer>
+
     </div>
+
+    <!-- Particle Container -->
+    <div id="particles" class="fixed inset-0 pointer-events-none z-50"></div>
   </body>
 </html>
