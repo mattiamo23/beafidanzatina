@@ -648,7 +648,7 @@ const gameTimerEl = document.getElementById('game-timer')
 const gameScoreEl = document.getElementById('game-score')
 const gameBestEl = document.getElementById('game-best')
 
-let gameInterval = null
+let catGameInterval = null
 let moveInterval = null
 let spawnRate = 900
 const gameDuration = 20
@@ -680,7 +680,7 @@ function placeCatRandom(){
 
 function onCatHit(e){
   e.preventDefault()
-  if(!gameInterval) return
+  if(!catGameInterval) return
   gameScore++
   gameScoreEl.textContent = gameScore
   catSprite.classList.add('cat-pop')
@@ -694,9 +694,9 @@ function onCatHit(e){
   launchConfetti(14)
 }
 
-function startGame(){
+function startCatGame(){
   if(!gameArea || !catSprite) return
-  resetGame()
+  resetCatGame()
   catSprite.style.display = 'block'
   placeCatRandom()
   gameStart.disabled = true
@@ -706,20 +706,20 @@ function startGame(){
   gameTimerEl.textContent = remaining
   spawnRate = 900
   moveInterval = setInterval(placeCatRandom, spawnRate)
-  gameInterval = setInterval(()=>{
+  catGameInterval = setInterval(()=>{
     remaining--
     gameTimerEl.textContent = remaining
     if(remaining <= 0){
-      endGame()
+      endCatGame()
     }
   },1000)
 }
 
-function endGame(){
-  clearInterval(gameInterval)
+function endCatGame(){
+  clearInterval(catGameInterval)
   clearInterval(moveInterval)
   moveInterval = null
-  gameInterval = null
+  catGameInterval = null
   catSprite.style.display = 'none'
   gameStart.disabled = false
   const prevBest = safeNumber(localStorage.getItem('bea_cat_best'))
@@ -732,8 +732,8 @@ function endGame(){
   }
 }
 
-function resetGame(){
-  clearInterval(gameInterval)
+function resetCatGame(){
+  clearInterval(catGameInterval)
   clearInterval(moveInterval)
   catSprite && (catSprite.style.display = 'none')
   gameStart && (gameStart.disabled = false)
@@ -745,9 +745,9 @@ function resetGame(){
   if(gameBestEl) gameBestEl.textContent = stored
 }
 
-if(gameStart) gameStart.addEventListener('click', startGame)
-if(gameReset) gameReset.addEventListener('click', resetGame)
+if(gameStart) gameStart.addEventListener('click', startCatGame)
+if(gameReset) gameReset.addEventListener('click', resetCatGame)
 if(catSprite) catSprite.addEventListener('pointerdown', onCatHit)
 
 // make sure the game resizes nicely on orientation change
-window.addEventListener('orientationchange', ()=>{ if(gameInterval) placeCatRandom() })
+window.addEventListener('orientationchange', ()=>{ if(catGameInterval) placeCatRandom() })
