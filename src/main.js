@@ -134,11 +134,20 @@ const playIcon        = document.getElementById('btn-play-icon')
 const pauseIcon       = document.getElementById('btn-pause-icon')
 
 // ── Web Audio API bell sound ──────────────────────────────────────
+let _sharedAudioCtx = null
+function getAudioCtx() {
+  if (!_sharedAudioCtx || _sharedAudioCtx.state === 'closed') {
+    _sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)()
+  }
+  if (_sharedAudioCtx.state === 'suspended') _sharedAudioCtx.resume()
+  return _sharedAudioCtx
+}
+
 function playBell(type = 'end') {
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)()
+    const ctx = getAudioCtx()
     const patterns = {
-      end:   [[0, 880, 0.6, 'sine'], [0.3, 660, 0.4, 'sine'], [0.6, 440, 0.3, 'sine']],
+      end:   [[0, 880, 0.7, 'sine'], [0.35, 660, 0.5, 'sine'], [0.7, 880, 0.6, 'sine'], [1.05, 440, 0.4, 'sine']],
       tick:  [[0, 1200, 0.05, 'sine']],
       start: [[0, 660, 0.15, 'sine'], [0.12, 880, 0.12, 'sine']],
     }
@@ -149,11 +158,53 @@ function playBell(type = 'end') {
       osc.connect(vol); vol.connect(ctx.destination)
       osc.type = shape; osc.frequency.value = freq
       vol.gain.setValueAtTime(gain, ctx.currentTime + time)
-      vol.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + 0.8)
+      vol.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + 0.9)
       osc.start(ctx.currentTime + time)
-      osc.stop(ctx.currentTime + time + 0.9)
+      osc.stop(ctx.currentTime + time + 1.0)
     })
   } catch(e) {}
+}
+
+// ── Repeating alarm (suoneria sveglia) ────────────────────────────
+let _alarmInterval = null
+let _alarmCount    = 0
+const ALARM_REPEATS = 12  // ~24 secondi
+
+function startAlarm() {
+  stopAlarm()
+  _alarmCount = 0
+  playBell('end')
+  _alarmInterval = setInterval(() => {
+    _alarmCount++
+    if (_alarmCount >= ALARM_REPEATS) { stopAlarm(); return }
+    playBell('end')
+    vibrate([150, 80, 150])
+  }, 2100)
+  // ferma l'allarme al primo tocco dell'utente
+  const stopOnTouch = () => { stopAlarm(); document.removeEventListener('pointerdown', stopOnTouch) }
+  document.addEventListener('pointerdown', stopOnTouch)
+}
+
+function stopAlarm() {
+  if (_alarmInterval) { clearInterval(_alarmInterval); _alarmInterval = null }
+}
+
+// ── Web Notifications ─────────────────────────────────────────────
+function askNotificationPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission()
+  }
+}
+
+function fireTimerNotification(mode) {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return
+  const msgs = {
+    study: { title: '🎉 Sessione completata!', body: 'Bravissima Bea! Prenditi una pausa meritate.' },
+    short: { title: '☕ Pausa finita!',        body: 'Forza, si riprende a studiare!' },
+    long:  { title: '🛌 Pausa lunga finita!',  body: 'Riposata? Torna sui libri!' },
+  }
+  const m = msgs[mode] || msgs.study
+  try { new Notification(m.title, { body: m.body, icon: '/assets/logo.svg', silent: false }) } catch(e) {}
 }
 
 // ── Screen Wake Lock ─────────────────────────────────────────────
@@ -249,6 +300,9 @@ function startTimer() {
   const m = MODES[timerMode]
   if (timerLabelEl) timerLabelEl.textContent = m.label
   requestWakeLock()
+  askNotificationPermission()
+  // unlock AudioContext con il gesto utente (necessario per iOS)
+  try { getAudioCtx() } catch(e) {}
   playBell('start')
 
   timerInterval = setInterval(() => {
@@ -266,8 +320,10 @@ function startTimer() {
 
 // ── Timer complete ────────────────────────────────────────────────
 function onTimerComplete() {
-  playBell('end')
-  vibrate([100, 60, 100, 60, 200])
+  stopAlarm()
+  startAlarm()                          // sveglia che si ripete
+  vibrate([200, 100, 200, 100, 400])    // pattern lungo
+  fireTimerNotification(timerMode)      // notifica sistema
   setPlayPauseIcon(false)
   releaseWakeLock()
 
@@ -632,3 +688,33 @@ if ('ontouchstart' in window && typeof DeviceMotionEvent !== 'undefined') {
   }
 }
 
+// ── EASTER EGG: 5 tap sul 📚 → timer a 2 secondi ──────────────────
+;(function() {
+  const logoBook = document.getElementById('logo-book')
+  if (!logoBook) return
+  let taps = 0
+  let lastTap = 0
+  logoBook.style.cursor = 'pointer'
+  logoBook.addEventListener('click', () => {
+    const now = Date.now()
+    if (now - lastTap > 3000) taps = 0   // resetta se passa >3s
+    lastTap = now
+    taps++
+    if (taps >= 5) {
+      taps = 0
+      // porta il timer a 2 secondi rimanenti
+      if (!timerRunning) startTimer()     // avvia se fermo
+      timerSeconds = 2
+      totalSeconds = Math.max(totalSeconds, 2)
+      updateTimerUI()
+      vibrate([30, 20, 30, 20, 30])
+      // piccolo flash visivo sul ring
+      const ring = document.getElementById('timer-ring-wrap')
+      if (ring) {
+        ring.style.transition = 'opacity 0.1s'
+        ring.style.opacity = '0.3'
+        setTimeout(() => { ring.style.opacity = '1' }, 150)
+      }
+    }
+  })
+})()
