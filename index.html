@@ -62,37 +62,64 @@
       </section>
 
       <!-- ======= TIMER POMODORO ======= -->
-      <section id="timer" class="snap-section">
-        <div class="card-section w-full max-w-lg mx-auto">
-          <h2 class="section-title">⏱️ Timer Pomodoro</h2>
-          <p class="text-gray-500 text-sm mb-4 text-center">25 min sul bando, poi pausa meritata! 🍵</p>
-          <div class="flex flex-wrap justify-center gap-2 mb-4">
-            <button class="timer-tab active" data-mode="study" data-minutes="25">📖 Studio</button>
-            <button class="timer-tab" data-mode="short" data-minutes="5">☕ Pausa</button>
-            <button class="timer-tab" data-mode="long" data-minutes="15">🛌 Pausa lunga</button>
-          </div>
-          <div class="flex flex-col items-center gap-4">
-            <div class="timer-circle">
-              <svg class="timer-ring" viewBox="0 0 200 200">
-                <circle class="timer-ring-bg" cx="100" cy="100" r="88"/>
-                <circle id="timer-progress" class="timer-ring-fill" cx="100" cy="100" r="88"/>
-              </svg>
-              <div class="timer-time-display">
-                <div id="timer-display" class="text-5xl sm:text-6xl font-bold font-['Fredoka'] text-yellow-600">25:00</div>
-                <div id="timer-phase-label" class="text-sm text-yellow-400 font-medium mt-1">Pronta?</div>
-              </div>
-            </div>
-            <div class="flex gap-3 w-full">
-              <button id="timer-start" class="btn-purple flex-1 py-3 text-lg">▶️ Start</button>
-              <button id="timer-reset" class="btn-outline px-6 py-3 text-lg">↺ Reset</button>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-sm text-gray-500">Sessioni oggi:</span>
-              <div id="session-dots" class="flex gap-1.5"></div>
-              <span id="session-count" class="text-sm font-bold text-yellow-600">0</span>
-            </div>
+      <section id="timer" class="snap-section timer-fullscreen">
+
+        <!-- Mode tabs -->
+        <div class="timer-mode-row">
+          <button class="tmode-btn active" data-mode="study" data-minutes="25">📖 Studio</button>
+          <button class="tmode-btn" data-mode="short" data-minutes="5">☕ Pausa</button>
+          <button class="tmode-btn" data-mode="long" data-minutes="15">🛌 Lunga</button>
+        </div>
+
+        <!-- Ring + display -->
+        <div id="timer-ring-wrap" class="timer-ring-wrap">
+          <svg class="timer-svg" viewBox="0 0 300 300" fill="none">
+            <circle class="t-track" cx="150" cy="150" r="130"/>
+            <circle id="timer-progress" class="t-fill" cx="150" cy="150" r="130"/>
+          </svg>
+          <div class="timer-center-display">
+            <div id="timer-phase-emoji" class="timer-phase-emoji">📖</div>
+            <div id="timer-display" class="timer-big-time">25:00</div>
+            <div id="timer-phase-label" class="timer-phase-label">Tocca per iniziare</div>
           </div>
         </div>
+
+        <!-- Auto-advance banner -->
+        <div id="timer-auto-banner" class="timer-auto-banner hidden">
+          <span id="timer-auto-text"></span>
+        </div>
+
+        <!-- Controls -->
+        <div class="timer-controls-row">
+          <button id="timer-reset" class="tctrl-btn tctrl-secondary" title="Reset">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+          </button>
+          <button id="timer-start" class="tctrl-btn tctrl-main">
+            <svg id="btn-play-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5,3 19,12 5,21"/>
+            </svg>
+            <svg id="btn-pause-icon" class="hidden" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+            </svg>
+          </button>
+          <button id="timer-skip" class="tctrl-btn tctrl-secondary" title="Salta">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5,4 15,12 5,20"/><line x1="19" y1="5" x2="19" y2="19"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Session progress -->
+        <div class="timer-session-row">
+          <div id="session-dots" class="flex gap-2"></div>
+          <span class="timer-session-label">
+            <span id="session-count">0</span> sessioni oggi
+          </span>
+        </div>
+
       </section>
 
       <!-- ======= FRASI MOTIVAZIONALI ======= -->

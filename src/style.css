@@ -133,57 +133,182 @@
     background: #fef9c3;
   }
 
-  /* ─── TIMER ──────────────────────────────── */
-  .timer-tab {
-    @apply px-3 py-2 rounded-xl text-sm font-semibold border-2 border-transparent
-           text-gray-500 transition-all duration-200 touch-manipulation;
-  }
-  .timer-tab:hover {
-    background: #fefce8;
-  }
-  .timer-tab.active {
-    background: #fef9c3;
-    color: #713f12;
-    border-color: #fde047;
+  /* ─── TIMER FULLSCREEN ───────────────────── */
+  .timer-fullscreen {
+    justify-content: space-between;
+    padding-top: calc(3.5rem + env(safe-area-inset-top));
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    gap: 0;
   }
 
-  .timer-circle {
-    @apply relative flex items-center justify-center;
-    width: clamp(140px, 40vw, 190px);
-    height: clamp(140px, 40vw, 190px);
-  }
-
-  .timer-ring {
-    @apply absolute inset-0;
+  /* Mode row */
+  .timer-mode-row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
     width: 100%;
-    height: 100%;
+    padding: 0 1rem;
+    flex-shrink: 0;
+  }
+  .tmode-btn {
+    flex: 1;
+    padding: 0.45rem 0;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #a16207;
+    background: transparent;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    touch-manipulation: manipulation;
+    white-space: nowrap;
+  }
+  .tmode-btn.active {
+    background: #fef9c3;
+    border-color: #fde047;
+    color: #713f12;
+  }
+
+  /* Ring wrap */
+  .timer-ring-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .timer-svg {
+    width: clamp(220px, 72vw, 320px);
+    height: clamp(220px, 72vw, 320px);
     transform: rotate(-90deg);
+    overflow: visible;
   }
-
-  .timer-ring-bg {
-    fill: none;
+  .t-track {
     stroke: #fef9c3;
-    stroke-width: 10;
-  }
-
-  .timer-ring-fill {
+    stroke-width: 14;
     fill: none;
-    stroke-width: 10;
+  }
+  .t-fill {
+    stroke: #eab308;
+    stroke-width: 14;
+    fill: none;
     stroke-linecap: round;
-    transition: stroke-dashoffset 1s linear, stroke 0.4s ease;
+    transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+  }
+  .timer-center-display {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    pointer-events: none;
+  }
+  .timer-phase-emoji {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .timer-big-time {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(3rem, 14vw, 5rem);
+    font-weight: 600;
+    color: #713f12;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .timer-phase-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #a16207;
+    margin-top: 0.3rem;
+    text-align: center;
   }
 
-  .timer-time-display {
-    @apply absolute inset-0 flex flex-col items-center justify-center;
+  /* Auto-advance banner */
+  .timer-auto-banner {
+    background: rgba(254,249,195,0.95);
+    border: 1.5px solid #fde047;
+    border-radius: 999px;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #713f12;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .timer-auto-banner.hidden { display: none; }
+
+  /* Controls */
+  .timer-controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-shrink: 0;
+    padding: 0 1rem;
+  }
+  .tctrl-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+    touch-manipulation: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tctrl-btn:active { transform: scale(0.92); }
+  .tctrl-main {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #facc15, #eab308);
+    color: #713f12;
+    box-shadow: 0 4px 20px rgba(234,179,8,0.45);
+  }
+  .tctrl-secondary {
+    width: 50px;
+    height: 50px;
+    background: rgba(254,249,195,0.9);
+    color: #a16207;
+    border: 2px solid #fde68a;
   }
 
+  /* Session row */
+  .timer-session-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+  .timer-session-label {
+    font-size: 0.75rem;
+    color: #a16207;
+    font-weight: 600;
+  }
+
+  /* Session dots */
   .session-dot {
-    @apply w-3 h-3 rounded-full border-2;
-    border-color: #fcd34d;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #fef9c3;
+    border: 2px solid #fcd34d;
+    transition: background 0.3s;
   }
   .session-dot.filled {
     background: #eab308;
     border-color: #eab308;
+  }
+  .session-dot.long-break {
+    background: #a16207;
+    border-color: #a16207;
   }
 
   /* ─── QUOTES ─────────────────────────────── */
