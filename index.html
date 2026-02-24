@@ -3,225 +3,147 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
-    <meta name="theme-color" content="#FCD34D" />
+    <meta name="theme-color" content="#fde68a" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <title>Per Bea Fidanzatina ⭐</title>
+    <title>Bea studia per il bando 📚✨</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="/assets/logo-BlCPvbVA.svg">
-    <script type="module" crossorigin src="/assets/index-etWUjLOu.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-Cttn3hCw.css">
+    <script type="module" crossorigin src="/assets/index-BaMGXRtn.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DeVnp4sq.css">
   </head>
-  <body class="antialiased bg-gradient-to-br from-yellow-300 via-yellow-200 to-amber-300 text-gray-800 overflow-x-hidden">
-    
-    <!-- Floating aerial silks in background -->
+  <body class="antialiased min-h-screen text-gray-800 overflow-x-hidden font-['Quicksand']" style="background: linear-gradient(135deg, #fffde7 0%, #fef9c3 35%, #fffbeb 70%, #fefce8 100%); padding-bottom: env(safe-area-inset-bottom);">
+
+    <!-- Animated floating blobs background -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      <div class="aerial-silk silk-1"></div>
-      <div class="aerial-silk silk-2"></div>
-      <div class="aerial-silk silk-3"></div>
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
     </div>
 
-    <!-- Floating cats -->
-    <div id="floating-cats" class="fixed inset-0 pointer-events-none z-10"></div>
-
-    <div id="app" class="min-h-screen relative z-20 px-4 py-8">
-      
-      <!-- Hero Section -->
-      <header class="text-center mb-8 md:mb-12 relative px-2">
-        <div class="inline-block relative">
-          <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-amber-600 mb-3 font-['Fredoka'] animate-bounce-slow leading-tight">
-            Ehi tu!
-          </h1>
-          <div class="absolute -top-4 -right-4 md:-top-6 md:-right-6 text-2xl md:text-4xl animate-spin-slow">⭐</div>
-          <div class="absolute -bottom-3 -left-4 md:-bottom-4 md:-left-6 text-2xl md:text-3xl animate-bounce">✨</div>
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 navbar-glass" style="padding-top: env(safe-area-inset-top);">
+      <div class="max-w-4xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
+        <span class="text-base sm:text-xl font-bold font-['Fredoka'] text-yellow-600 truncate">📚 Bea Fidanzatina</span>
+        <div class="flex gap-0 sm:gap-1 shrink-0">
+          <a href="#home" class="nav-link">🏠</a>
+          <a href="#timer" class="nav-link">⏱️</a>
+          <a href="#frasi" class="nav-link">💬</a>
+          <a href="#mel" class="nav-link">🐱</a>
         </div>
-        <p class="text-base sm:text-lg md:text-2xl text-gray-700 font-medium max-w-2xl mx-auto mt-4 px-4">
-          Questa pagina è dedicata a te, regina dei tessuti aerei, gamer di Mario 64 DS e amante della Mel 🐱
-        </p>
-      </header>
-
-      <!-- Main Container -->
-      <div class="max-w-6xl mx-auto space-y-8">
-        
-        <!-- Mel Zone -->
-        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden group active:scale-[0.98] md:hover:scale-[1.02] transition-transform">
-          <div class="absolute top-0 right-0 text-5xl md:text-8xl opacity-10 group-hover:animate-wiggle">🐱</div>
-          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-yellow-700 font-['Fredoka']">La Divina Mel 😻</h2>
-          <div class="grid md:grid-cols-2 gap-4 md:gap-6">
-            <div>
-              <p class="text-base sm:text-lg mb-4 leading-relaxed">
-                La gattina più figa del pianeta! Mel è qui per giudicarti silenziosamente mentre fai aerial... o mentre giochi a Mario.
-              </p>
-              <button id="mel-btn" class="btn-primary mb-3 w-full md:w-auto text-base sm:text-lg">
-                Evoca Mel Volante 🐱✨
-              </button>
-              <div id="mel-counter" class="text-sm sm:text-base text-gray-600 text-center md:text-left">Mel evocate: <span class="font-bold text-yellow-700">0</span></div>
-            </div>
-            <div class="flex items-center justify-center mt-4 md:mt-0">
-              <div id="mel-stage" class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 relative">
-                <div class="mel-placeholder">😺</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Aerial Tricks Counter -->
-        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl">
-          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-yellow-700 font-['Fredoka']">Aerial Tricks Simulator 🎪</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-            <button class="trick-btn" data-trick="Inversion">
-              <span class="text-4xl sm:text-3xl mb-2">🤸‍♀️</span>
-              <span class="font-semibold text-base sm:text-sm md:text-base">Inversion</span>
-            </button>
-            <button class="trick-btn" data-trick="Drop">
-              <span class="text-4xl sm:text-3xl mb-2">🎪</span>
-              <span class="font-semibold text-base sm:text-sm md:text-base">Drop</span>
-            </button>
-            <button class="trick-btn" data-trick="Splits">
-              <span class="text-4xl sm:text-3xl mb-2">⭐</span>
-              <span class="font-semibold text-base sm:text-sm md:text-base">Splits</span>
-            </button>
-          </div>
-          <div class="mt-4 md:mt-6 text-center">
-            <div class="text-sm sm:text-base text-gray-600 mb-2">Tricks completati oggi:</div>
-            <div id="tricks-score" class="text-4xl sm:text-5xl font-bold text-yellow-600">0</div>
-          </div>
-        </section>
-
-        <!-- Mario 64 DS Mini Game -->
-        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl" id="mario-game">
-          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-yellow-700 font-['Fredoka']">Mario 64 DS: Raccogli le Stelle! ⭐</h2>
-          <div class="bg-gradient-to-b from-sky-400 to-blue-500 rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 relative overflow-hidden" style="height: 350px; max-height: 50vh;">
-            <div id="mario-canvas" class="relative w-full h-full touch-none">
-              <div id="mario-player" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-4xl sm:text-5xl cursor-move touch-none">
-                🍄
-              </div>
-              <div id="stars-container" class="absolute inset-0"></div>
-              <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-white/90 px-2 py-1 sm:px-4 sm:py-2 rounded-lg shadow">
-                <div class="text-xs sm:text-sm text-gray-600">Stelle raccolte:</div>
-                <div id="star-count" class="text-xl sm:text-3xl font-bold text-yellow-600">0 / 10</div>
-              </div>
-              <div class="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 px-2 py-1 sm:px-4 sm:py-2 rounded-lg shadow">
-                <div class="text-xs sm:text-sm text-gray-600">Tempo:</div>
-                <div id="game-timer" class="text-lg sm:text-2xl font-bold text-gray-800">30</div>
-              </div>
-            </div>
-          </div>
-          <div class="mt-3 md:mt-4 flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
-            <button id="start-game" class="btn-primary w-full sm:w-auto text-base sm:text-lg">Inizia Gioco! 🎮</button>
-            <button id="reset-game" class="btn-secondary w-full sm:w-auto text-base sm:text-lg">Reset</button>
-          </div>
-          <div class="mt-2 md:mt-3 text-center text-xs sm:text-sm text-gray-600">
-            Tocca e trascina Mario per raccogliere le stelle!
-          </div>
-        </section>
-
-        <!-- Tuna Hate Zone -->
-        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gradient-to-r from-red-100 to-orange-100 border-2 md:border-4 border-red-300">
-          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-red-700 font-['Fredoka'] text-center md:text-left">⚠️ ZONA ANTI-TONNO ⚠️</h2>
-          <div class="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
-            <div>
-              <p class="text-base sm:text-lg mb-4 leading-relaxed">
-                Il tonno in scatola è ufficialmente BANDITO da questa pagina. Se provi a portarlo qui, verrà immediatamente trasformato in glitter.
-              </p>
-              <div class="space-y-2 sm:space-y-3">
-                <div class="flex items-center gap-2 sm:gap-3">
-                  <span class="text-xl sm:text-2xl">🚫</span>
-                  <span class="text-sm sm:text-base">Tonno in scatola: <strong>VIETATO</strong></span>
-                </div>
-                <div class="flex items-center gap-2 sm:gap-3">
-                  <span class="text-xl sm:text-2xl">🐟</span>
-                  <span class="text-sm sm:text-base">Odore di tonno: <strong>ESORCIZZATO</strong></span>
-                </div>
-                <div class="flex items-center gap-2 sm:gap-3">
-                  <span class="text-xl sm:text-2xl">✨</span>
-                  <span class="text-sm sm:text-base">Alternative migliori: <strong>TUTTO IL RESTO</strong></span>
-                </div>
-              </div>
-            </div>
-            <div class="text-center mt-4 md:mt-0">
-              <button id="ban-tuna-btn" class="btn-danger text-base sm:text-xl px-6 sm:px-8 py-3 sm:py-4 w-full md:w-auto">
-                Bandisci il Tonno! 🚫
-              </button>
-              <div id="tuna-banned" class="mt-3 md:mt-4 text-sm sm:text-base text-gray-600">Tonni banditi: <span class="font-bold">0</span></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Skincare & Yepoda Zone -->
-        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gradient-to-r from-pink-100 to-purple-100">
-          <h2 class="text-2xl sm:text-3xl font-bold mb-3 md:mb-4 text-purple-700 font-['Fredoka']">Skincare Queen 👑✨</h2>
-          <div class="grid md:grid-cols-2 gap-4 md:gap-6">
-            <div>
-              <p class="text-base sm:text-lg mb-4 leading-relaxed">
-                Yepoda mood sempre attivo! La routine skincare è sacra e nessuno può interromperla. Sheet mask on, stress off.
-              </p>
-              <div class="space-y-2 sm:space-y-3">
-                <button class="skincare-btn text-sm sm:text-base" data-product="Sheet Mask">
-                  <span class="text-xl sm:text-2xl mr-2">🎭</span> Sheet Mask
-                </button>
-                <button class="skincare-btn text-sm sm:text-base" data-product="Gua Sha">
-                  <span class="text-xl sm:text-2xl mr-2">💎</span> Gua Sha Session
-                </button>
-                <button class="skincare-btn text-sm sm:text-base" data-product="Eye Patches">
-                  <span class="text-xl sm:text-2xl mr-2">👀</span> Eye Patches
-                </button>
-                <button class="skincare-btn text-sm sm:text-base" data-product="Jade Roller">
-                  <span class="text-xl sm:text-2xl mr-2">🪷</span> Jade Roller
-                </button>
-              </div>
-            </div>
-            <div class="flex flex-col items-center justify-center mt-4 md:mt-0">
-              <div class="text-center mb-4 w-full">
-                <div class="text-xs sm:text-sm text-gray-600 mb-2">Glow Level</div>
-                <div class="relative w-full h-6 sm:h-8 bg-purple-200 rounded-full overflow-hidden">
-                  <div id="glow-meter" class="h-full bg-gradient-to-r from-pink-400 to-purple-500 transition-all duration-500 flex items-center justify-end pr-2" style="width: 0%">
-                    <span class="text-white text-xs font-bold">✨</span>
-                  </div>
-                </div>
-                <div id="glow-percentage" class="text-xl sm:text-2xl font-bold text-purple-600 mt-2">0%</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Fun Zone -->
-        <section class="glass-card p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl">
-          <h2 class="text-2xl sm:text-3xl font-bold mb-4 md:mb-6 text-yellow-700 font-['Fredoka'] text-center">Fun Zone 🎉</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-            <button id="confetti-btn" class="fun-btn">
-              <span class="text-5xl sm:text-4xl mb-2">🎊</span>
-              <span class="font-semibold text-base sm:text-sm md:text-base">Confetti Esplosione</span>
-            </button>
-            <button id="rainbow-btn" class="fun-btn">
-              <span class="text-5xl sm:text-4xl mb-2">🌈</span>
-              <span class="font-semibold text-base sm:text-sm md:text-base">Rainbow Mode</span>
-            </button>
-            <button id="party-btn" class="fun-btn">
-              <span class="text-5xl sm:text-4xl mb-2">🎉</span>
-              <span class="font-semibold text-base sm:text-sm md:text-base">Party Time!</span>
-            </button>
-          </div>
-        </section>
-
       </div>
+    </nav>
 
-      <!-- Footer -->
-      <footer class="text-center mt-16 pb-8">
-        <p class="text-gray-600 text-sm">
-          Made with 💛 for the coolest girlfriend ever
-        </p>
-        <p class="text-gray-500 text-xs mt-2">
-          No tuna was harmed in the making of this website
-        </p>
-      </footer>
+    <div id="app" class="relative z-10">
+
+      <!-- ======= HOME ======= -->
+      <section id="home" class="snap-section text-center">
+        <div class="w-full max-w-lg mx-auto">
+          <div class="inline-block relative mb-4">
+            <div class="text-6xl sm:text-8xl animate-bounce-slow">📚</div>
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-bold font-['Fredoka'] mb-3 leading-tight"
+              style="background: linear-gradient(90deg,#eab308,#facc15,#fde047); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+            Ciao Bea! 🌸
+          </h1>
+          <p class="text-base sm:text-lg text-gray-600 font-medium mx-auto mb-8">
+            Il tuo angolino per sopravvivere al bando da assistente sociale ✨
+          </p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <div class="mood-badge" style="--c:#fde68a;">☀️ Bando mode on</div>
+            <div class="mood-badge" style="--c:#fef08a;">🐈‍⬛ Mel approva</div>
+            <div class="mood-badge" style="--c:#fef9c3;">💛 Futura AS</div>
+            <div class="mood-badge" style="--c:#fcd34d;">✨ Ce la fai</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======= TIMER POMODORO ======= -->
+      <section id="timer" class="snap-section">
+        <div class="card-section w-full max-w-lg mx-auto">
+          <h2 class="section-title">⏱️ Timer Pomodoro</h2>
+          <p class="text-gray-500 text-sm mb-4 text-center">25 min sul bando, poi pausa meritata! 🍵</p>
+          <div class="flex flex-wrap justify-center gap-2 mb-4">
+            <button class="timer-tab active" data-mode="study" data-minutes="25">📖 Studio</button>
+            <button class="timer-tab" data-mode="short" data-minutes="5">☕ Pausa</button>
+            <button class="timer-tab" data-mode="long" data-minutes="15">🛌 Pausa lunga</button>
+          </div>
+          <div class="flex flex-col items-center gap-4">
+            <div class="timer-circle">
+              <svg class="timer-ring" viewBox="0 0 200 200">
+                <circle class="timer-ring-bg" cx="100" cy="100" r="88"/>
+                <circle id="timer-progress" class="timer-ring-fill" cx="100" cy="100" r="88"/>
+              </svg>
+              <div class="timer-time-display">
+                <div id="timer-display" class="text-5xl sm:text-6xl font-bold font-['Fredoka'] text-yellow-600">25:00</div>
+                <div id="timer-phase-label" class="text-sm text-yellow-400 font-medium mt-1">Pronta?</div>
+              </div>
+            </div>
+            <div class="flex gap-3 w-full">
+              <button id="timer-start" class="btn-purple flex-1 py-3 text-lg">▶️ Start</button>
+              <button id="timer-reset" class="btn-outline px-6 py-3 text-lg">↺ Reset</button>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-sm text-gray-500">Sessioni oggi:</span>
+              <div id="session-dots" class="flex gap-1.5"></div>
+              <span id="session-count" class="text-sm font-bold text-yellow-600">0</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======= FRASI MOTIVAZIONALI ======= -->
+      <section id="frasi" class="snap-section">
+        <div class="card-section w-full max-w-lg mx-auto">
+          <h2 class="section-title">💬 Frasi del Giorno</h2>
+          <p class="text-gray-500 text-xs mb-3 text-center">Un po' di carica per le fatiche del bando ⚡</p>
+          <div id="quote-card" class="quote-card">
+            <div id="quote-text" class="text-base sm:text-lg font-semibold text-center leading-relaxed text-gray-700 mb-2">
+              Premi il pulsante! 👇
+            </div>
+            <div id="quote-author" class="text-xs text-gray-400 text-center italic"></div>
+          </div>
+          <div class="flex gap-3 mt-3">
+            <button id="new-quote-btn" class="btn-pink flex-1 py-2.5 text-sm">✨ Nuova frase</button>
+            <button id="fav-quote-btn" class="btn-outline px-5 py-2.5 text-base">❤️</button>
+          </div>
+          <div class="mt-3">
+            <div class="text-xs font-semibold text-gray-500 mb-2 text-center">Le tue preferite 💛</div>
+            <div id="fav-quotes" class="space-y-1.5 max-h-28 overflow-y-auto"></div>
+            <div id="fav-empty" class="text-center text-xs text-gray-400 italic">
+              Clicca ❤️ per salvare una frase!
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======= MEL ======= -->
+      <section id="mel" class="snap-section text-center">
+        <div class="card-section w-full max-w-lg mx-auto">
+          <h2 class="section-title">🐱 La Divina Mel</h2>
+          <p class="text-gray-500 text-xs mb-2">La tua tifosa numero uno per il bando 😻</p>
+          <div id="mel-display" class="text-7xl mb-2 cursor-pointer select-none transition-transform hover:scale-110 active:scale-95 inline-block" title="Tocca Mel!">
+            😺
+          </div>
+          <div id="mel-message" class="text-sm font-semibold text-yellow-700 mb-3 min-h-[1.5rem]">
+            Ciao! Ti guardo studiare 👀
+          </div>
+          <button id="mel-btn" class="btn-purple w-full py-3 text-lg mb-2">
+            Accarezza Mel! 🐾
+          </button>
+          <div class="text-sm text-gray-500 mt-1">
+            Coccole date: <span id="mel-count" class="font-bold text-yellow-600">0</span>
+          </div>
+          <p class="text-yellow-600/50 text-xs mt-3">Made with 💛 per la futura AS più brava del mondo</p>
+        </div>
+      </section>
 
     </div>
 
-    <!-- Particle Container -->
+        <!-- Particle Container -->
     <div id="particles" class="fixed inset-0 pointer-events-none z-50"></div>
   </body>
 </html>
