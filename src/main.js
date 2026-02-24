@@ -485,3 +485,150 @@ const observer = new IntersectionObserver((entries) => {
 snapSections.forEach(s => observer.observe(s))
 // la home è già visibile all'avvio
 document.querySelector('#home')?.classList.add('is-visible')
+
+// ============================================
+// EXTRA MOBILE EFFECTS
+// ============================================
+
+// ── 1. SECTION DOT NAVIGATOR (right side) ────────────────────────
+const sectionIds    = ['home', 'timer', 'frasi', 'mel']
+const dotsNav       = document.createElement('div')
+dotsNav.className   = 'section-nav-dots'
+sectionIds.forEach(id => {
+  const dot       = document.createElement('button')
+  dot.className   = 's-dot'
+  dot.dataset.target = id
+  dot.setAttribute('aria-label', id)
+  dot.addEventListener('click', () =>
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  )
+  dotsNav.appendChild(dot)
+})
+document.body.appendChild(dotsNav)
+
+const allDots = Array.from(dotsNav.querySelectorAll('.s-dot'))
+const dotObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = sectionIds.indexOf(entry.target.id)
+      allDots.forEach((d, i) => d.classList.toggle('active', i === idx))
+    }
+  })
+}, { threshold: 0.5 })
+sectionIds.forEach(id => {
+  const el = document.getElementById(id)
+  if (el) dotObserver.observe(el)
+})
+
+// ── 2. GYROSCOPE PARALLAX ON HOME BLOBS ──────────────────────────
+if ('ontouchstart' in window) {
+  const blobs = document.querySelectorAll('.blob')
+  let tiltX = 0, tiltY = 0
+
+  const handleOrientation = (e) => {
+    tiltX = Math.min(Math.max((e.gamma || 0) / 25, -1), 1)
+    tiltY = Math.min(Math.max(((e.beta  || 0) - 45) / 40, -1), 1)
+  }
+
+  const startGyro = () => {
+    window.addEventListener('deviceorientation', handleOrientation, { passive: true })
+    ;(function animateBlobs() {
+      blobs.forEach((b, i) => {
+        const f = (i + 1) * 14
+        b.style.transform = `translate(${tiltX * f}px, ${tiltY * f * 0.5}px)`
+      })
+      requestAnimationFrame(animateBlobs)
+    })()
+  }
+
+  if (typeof DeviceOrientationEvent?.requestPermission === 'function') {
+    // iOS 13+ — asks permission on first tap of home section
+    document.getElementById('home')?.addEventListener('touchend', async () => {
+      try { await DeviceOrientationEvent.requestPermission(); startGyro() } catch(e) {}
+    }, { once: true })
+  } else {
+    startGyro()
+  }
+}
+
+// ── 3. SHIMMER GOLDEN RIPPLE ON CARD TOUCH ───────────────────────
+document.querySelectorAll('.card-section, .quote-card').forEach(card => {
+  if (getComputedStyle(card).position === 'static') card.style.position = 'relative'
+  card.style.overflow = 'hidden'
+  card.addEventListener('touchstart', e => {
+    const rect  = card.getBoundingClientRect()
+    const t     = e.touches[0]
+    const ripple = document.createElement('div')
+    ripple.className = 'shimmer-ripple'
+    ripple.style.left = (t.clientX - rect.left) + 'px'
+    ripple.style.top  = (t.clientY - rect.top)  + 'px'
+    card.appendChild(ripple)
+    setTimeout(() => ripple.remove(), 700)
+  }, { passive: true })
+})
+
+// ── 4. MOOD BADGES STAGGERED POP-IN ──────────────────────────────
+const badgeObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    const badges = entry.target.querySelectorAll('.mood-badge')
+    if (entry.isIntersecting) {
+      badges.forEach((b, i) => {
+        b.style.transitionDelay = (0.25 + i * 0.1) + 's'
+        b.classList.add('badge-visible')
+      })
+    } else {
+      badges.forEach(b => {
+        b.style.transitionDelay = '0s'
+        b.classList.remove('badge-visible')
+      })
+    }
+  })
+}, { threshold: 0.45 })
+const homeSection = document.getElementById('home')
+if (homeSection) badgeObserver.observe(homeSection)
+
+// ── 5. SHAKE DETECTION → MEL SURPRISE ────────────────────────────
+if ('ontouchstart' in window && typeof DeviceMotionEvent !== 'undefined') {
+  let lastAcc   = { x: 0, y: 0, z: 0 }
+  let shakeLock = false
+
+  const startShakeDetect = () => {
+    window.addEventListener('devicemotion', e => {
+      const acc = e.accelerationIncludingGravity
+      if (!acc || shakeLock) return
+      const delta = Math.abs((acc.x||0) - lastAcc.x) +
+                    Math.abs((acc.y||0) - lastAcc.y) +
+                    Math.abs((acc.z||0) - lastAcc.z)
+      lastAcc = { x: acc.x||0, y: acc.y||0, z: acc.z||0 }
+      if (delta > 28) {
+        shakeLock = true
+        const melEl = document.getElementById('mel-display')
+        if (melEl) {
+          const emojis = ['😺','😸','😹','😻','🐾']
+          melEl.textContent = emojis[Math.floor(Math.random() * emojis.length)]
+          melEl.classList.remove('mel-shake')
+          void melEl.offsetWidth  // reflow to restart animation
+          melEl.classList.add('mel-shake')
+          setTimeout(() => melEl.classList.remove('mel-shake'), 700)
+        }
+        showMelMessage()
+        vibrate([40, 20, 40])
+        spawnParticles(
+          window.innerWidth / 2,
+          window.innerHeight / 2,
+          ['😺','⭐','💛','🐾','✨']
+        )
+        setTimeout(() => { shakeLock = false }, 1800)
+      }
+    }, { passive: true })
+  }
+
+  if (typeof DeviceMotionEvent?.requestPermission === 'function') {
+    document.getElementById('mel')?.addEventListener('touchend', async () => {
+      try { await DeviceMotionEvent.requestPermission(); startShakeDetect() } catch(e) {}
+    }, { once: true })
+  } else {
+    startShakeDetect()
+  }
+}
+
