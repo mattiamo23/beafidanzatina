@@ -170,23 +170,49 @@ let _alarmInterval = null
 let _alarmCount    = 0
 const ALARM_REPEATS = 12  // ~24 secondi
 
-function startAlarm() {
+let _alarmOnDismiss = null
+
+function startAlarm(onDismiss = null) {
   stopAlarm()
-  _alarmCount = 0
+  _alarmCount    = 0
+  _alarmOnDismiss = onDismiss
   playBell('end')
+
   _alarmInterval = setInterval(() => {
     _alarmCount++
-    if (_alarmCount >= ALARM_REPEATS) { stopAlarm(); return }
+    if (_alarmCount >= ALARM_REPEATS) {
+      stopAlarm()
+      _fireAlarmDismiss()   // auto-scaduto → avvia comunque il prossimo
+      return
+    }
     playBell('end')
     vibrate([150, 80, 150])
   }, 2100)
+
   // ferma l'allarme al primo tocco dell'utente
-  const stopOnTouch = () => { stopAlarm(); document.removeEventListener('pointerdown', stopOnTouch) }
+  const stopOnTouch = () => {
+    document.removeEventListener('pointerdown', stopOnTouch)
+    stopAlarm()
+    _fireAlarmDismiss()
+  }
   document.addEventListener('pointerdown', stopOnTouch)
+  // salva il listener per poterlo rimuovere se il timer viene resettato
+  _alarmTouchOff = stopOnTouch
+}
+
+let _alarmTouchOff = null
+
+function _fireAlarmDismiss() {
+  const cb = _alarmOnDismiss
+  _alarmOnDismiss = null
+  _alarmTouchOff  = null
+  if (cb) cb()
 }
 
 function stopAlarm() {
   if (_alarmInterval) { clearInterval(_alarmInterval); _alarmInterval = null }
+  if (_alarmTouchOff) { document.removeEventListener('pointerdown', _alarmTouchOff); _alarmTouchOff = null }
+  _alarmOnDismiss = null
 }
 
 // ── Web Notifications ─────────────────────────────────────────────
@@ -264,6 +290,7 @@ function hideBanner() {
 function setMode(mode, silent = false) {
   clearInterval(timerInterval);  timerInterval = null
   clearInterval(autoCountdown);  autoCountdown = null
+  if (!silent) stopAlarm()   // reset manuale: cancella allarme e callback pendente
   timerRunning = false
   timerMode = mode
   const m = MODES[mode]
@@ -320,47 +347,45 @@ function startTimer() {
 
 // ── Timer complete ────────────────────────────────────────────────
 function onTimerComplete() {
-  stopAlarm()
-  startAlarm()                          // sveglia che si ripete
-  vibrate([200, 100, 200, 100, 400])    // pattern lungo
-  fireTimerNotification(timerMode)      // notifica sistema
+  vibrate([200, 100, 200, 100, 400])
+  fireTimerNotification(timerMode)
   setPlayPauseIcon(false)
   releaseWakeLock()
+
+  let nextMode, bannerMsg
 
   if (timerMode === 'study') {
     sessionCount++
     localStorage.setItem('sessionCount', String(sessionCount))
     updateSessionDots()
     launchConfetti()
-    // determine next break
-    const nextMode = sessionCount % SESSIONS_BEFORE_LONG === 0 ? 'long' : 'short'
-    const nextLabel = nextMode === 'long' ? 'Pausa lunga (15 min)' : 'Pausa breve (5 min)'
+    nextMode   = sessionCount % SESSIONS_BEFORE_LONG === 0 ? 'long' : 'short'
+    const nextLabel = nextMode === 'long' ? 'Pausa lunga 🛌' : 'Pausa breve ☕'
+    bannerMsg  = '🎉 Sessione completata! Tocca per iniziare ' + nextLabel
     if (timerLabelEl) timerLabelEl.textContent = '🎉 Sessione completata!'
-    autoAdvance(nextMode, nextLabel, 'Ottimo lavoro!')
   } else {
+    nextMode  = 'study'
+    bannerMsg = '☕ Pausa finita! Tocca per ricominciare a studiare 📖'
     if (timerLabelEl) timerLabelEl.textContent = 'Pausa finita!'
-    autoAdvance('study', 'Studio (25 min)', 'Pausa finita, forza!')
   }
 
   timerSeconds = 0
   updateTimerUI()
+
+  showBanner(bannerMsg)
+  startAlarm(() => {
+    hideBanner()
+    setMode(nextMode, true)
+    startTimer()
+  })
 }
 
-// ── Auto-advance with countdown ───────────────────────────────────
+// ── Auto-advance (usato solo dallo skip/easter egg) ─────────────────
 function autoAdvance(nextMode, nextLabel, msgPrefix) {
-  let countdown = 5
-  showBanner(msgPrefix + ' — ' + nextLabel + ' in ' + countdown + 's')
-  autoCountdown = setInterval(() => {
-    countdown--
-    if (countdown <= 0) {
-      clearInterval(autoCountdown); autoCountdown = null
-      hideBanner()
-      setMode(nextMode, true)
-      startTimer()       // auto-start next phase
-    } else {
-      showBanner(msgPrefix + ' — ' + nextLabel + ' in ' + countdown + 's')
-    }
-  }, 1000)
+  clearInterval(autoCountdown); autoCountdown = null
+  hideBanner()
+  setMode(nextMode, true)
+  startTimer()
 }
 
 // ── Event listeners ───────────────────────────────────────────────
@@ -702,32 +727,18 @@ if ('ontouchstart' in window && typeof DeviceMotionEvent !== 'undefined') {
     taps++
     if (taps >= 6) {
       taps = 0
-      // 1. porta il timer principale a 2 secondi
-      if (!timerRunning) startTimer()       // avvia se era fermo
-      timerSeconds = 2
-      totalSeconds = Math.max(totalSeconds, 2)
-      updateTimerUI()
-      // 2. se c'è un auto-countdown attivo, portalo a 1 secondo
-      if (autoCountdown) {
-        clearInterval(autoCountdown)
-        autoCountdown = null
-        // rilancia con 1 tick rimanente così scatta subito
-        let cd = 1
-        autoCountdown = setInterval(() => {
-          cd--
-          if (cd <= 0) {
-            clearInterval(autoCountdown); autoCountdown = null
-            hideBanner()
-            const next = timerMode === 'study'
-              ? (sessionCount % SESSIONS_BEFORE_LONG === 0 ? 'long' : 'short')
-              : 'study'
-            setMode(next, true)
-            startTimer()
-          }
-        }, 1000)
+      // se l'allarme sta suonando, spegnilo → parte subito il prossimo timer
+      if (_alarmInterval) {
+        stopAlarm()
+        _fireAlarmDismiss()
+      } else {
+        // altrimenti porta il timer a 2 secondi
+        if (!timerRunning) startTimer()
+        timerSeconds = 2
+        totalSeconds = Math.max(totalSeconds, 2)
+        updateTimerUI()
       }
       vibrate([30, 20, 30, 20, 30])
-      // flash leggero sul bottone
       statsBtn.style.transition = 'opacity 0.1s'
       statsBtn.style.opacity = '0.2'
       setTimeout(() => { statsBtn.style.opacity = '1' }, 200)
