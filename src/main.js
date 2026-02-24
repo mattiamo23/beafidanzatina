@@ -688,24 +688,45 @@ if ('ontouchstart' in window && typeof DeviceMotionEvent !== 'undefined') {
   }
 }
 
-// ── EASTER EGG: 6 tap su 📊 → azzera sessioni ─────────────────────
+// ── EASTER EGG: 6 tap su 📊 in 10s → tutti i timer a 2 secondi ────
 ;(function() {
   const statsBtn = document.getElementById('timer-stats-btn')
   if (!statsBtn) return
-  let taps = 0, lastTap = 0
+  let taps = 0
+  let firstTap = 0
   statsBtn.addEventListener('click', e => {
     e.stopPropagation()
     const now = Date.now()
-    if (now - lastTap > 2500) taps = 0
-    lastTap = now
+    if (taps === 0) firstTap = now
+    if (now - firstTap > 10000) { taps = 0; firstTap = now }  // finestra 10s
     taps++
     if (taps >= 6) {
       taps = 0
-      // reset completo sessioni
-      sessionCount = 0
-      localStorage.setItem('sessionCount', '0')
-      updateSessionDots()
-      vibrate([30, 20, 30, 20, 30, 20, 30])
+      // 1. porta il timer principale a 2 secondi
+      if (!timerRunning) startTimer()       // avvia se era fermo
+      timerSeconds = 2
+      totalSeconds = Math.max(totalSeconds, 2)
+      updateTimerUI()
+      // 2. se c'è un auto-countdown attivo, portalo a 1 secondo
+      if (autoCountdown) {
+        clearInterval(autoCountdown)
+        autoCountdown = null
+        // rilancia con 1 tick rimanente così scatta subito
+        let cd = 1
+        autoCountdown = setInterval(() => {
+          cd--
+          if (cd <= 0) {
+            clearInterval(autoCountdown); autoCountdown = null
+            hideBanner()
+            const next = timerMode === 'study'
+              ? (sessionCount % SESSIONS_BEFORE_LONG === 0 ? 'long' : 'short')
+              : 'study'
+            setMode(next, true)
+            startTimer()
+          }
+        }, 1000)
+      }
+      vibrate([30, 20, 30, 20, 30])
       // flash leggero sul bottone
       statsBtn.style.transition = 'opacity 0.1s'
       statsBtn.style.opacity = '0.2'
