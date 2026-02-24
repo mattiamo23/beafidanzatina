@@ -688,6 +688,32 @@ if ('ontouchstart' in window && typeof DeviceMotionEvent !== 'undefined') {
   }
 }
 
+// ── EASTER EGG: 6 tap su 📊 → azzera sessioni ─────────────────────
+;(function() {
+  const statsBtn = document.getElementById('timer-stats-btn')
+  if (!statsBtn) return
+  let taps = 0, lastTap = 0
+  statsBtn.addEventListener('click', e => {
+    e.stopPropagation()
+    const now = Date.now()
+    if (now - lastTap > 2500) taps = 0
+    lastTap = now
+    taps++
+    if (taps >= 6) {
+      taps = 0
+      // reset completo sessioni
+      sessionCount = 0
+      localStorage.setItem('sessionCount', '0')
+      updateSessionDots()
+      vibrate([30, 20, 30, 20, 30, 20, 30])
+      // flash leggero sul bottone
+      statsBtn.style.transition = 'opacity 0.1s'
+      statsBtn.style.opacity = '0.2'
+      setTimeout(() => { statsBtn.style.opacity = '1' }, 200)
+    }
+  })
+})()
+
 // ── EASTER EGG: 5 tap sul 📚 → timer a 2 secondi ──────────────────
 ;(function() {
   const logoBook = document.getElementById('logo-book')
