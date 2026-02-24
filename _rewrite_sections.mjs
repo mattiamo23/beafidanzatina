@@ -1,41 +1,10 @@
-<!doctype html>
-<html lang="it">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
-    <meta name="theme-color" content="#fde68a" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <title>Bea studia per il bando 📚✨</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="/assets/logo.svg">
-    <link rel="stylesheet" href="/src/style.css">
-    <script type="module" src="/src/main.js"></script>
-  </head>
-  <body class="antialiased min-h-screen text-gray-800 overflow-x-hidden font-['Quicksand']" style="background: linear-gradient(135deg, #fffde7 0%, #fef9c3 35%, #fffbeb 70%, #fefce8 100%); padding-bottom: env(safe-area-inset-bottom);">
+import { readFileSync, writeFileSync } from 'fs'
 
-    <!-- Animated floating blobs background -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-    </div>
+let html = readFileSync('index.html', 'utf8')
+const navbarEnd = html.indexOf('</nav>') + '</nav>'.length
+const particlesStart = html.indexOf('    <!-- Particle Container -->')
 
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-50 navbar-glass" style="padding-top: env(safe-area-inset-top);">
-      <div class="max-w-4xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
-        <span class="text-base sm:text-xl font-bold font-['Fredoka'] text-yellow-600 truncate">📚 Bea Fidanzatina</span>
-        <div class="flex gap-0 sm:gap-1 shrink-0">
-          <a href="#home" class="nav-link">🏠</a>
-          <a href="#timer" class="nav-link">⏱️</a>
-          <a href="#frasi" class="nav-link">💬</a>
-          <a href="#mel" class="nav-link">🐱</a>
-        </div>
-      </div>
-    </nav>
+const newSections = `
 
     <div id="app" class="relative z-10">
 
@@ -99,20 +68,20 @@
       <section id="frasi" class="snap-section">
         <div class="card-section w-full max-w-lg mx-auto">
           <h2 class="section-title">💬 Frasi del Giorno</h2>
-          <p class="text-gray-500 text-xs mb-3 text-center">Un po' di carica per le fatiche del bando ⚡</p>
+          <p class="text-gray-500 text-sm mb-4 text-center">Un po' di carica per le fatiche del bando ⚡</p>
           <div id="quote-card" class="quote-card">
-            <div id="quote-text" class="text-base sm:text-lg font-semibold text-center leading-relaxed text-gray-700 mb-2">
+            <div id="quote-text" class="text-lg sm:text-xl font-semibold text-center leading-relaxed text-gray-700 mb-3">
               Premi il pulsante! 👇
             </div>
-            <div id="quote-author" class="text-xs text-gray-400 text-center italic"></div>
+            <div id="quote-author" class="text-sm text-gray-400 text-center italic"></div>
           </div>
-          <div class="flex gap-3 mt-3">
-            <button id="new-quote-btn" class="btn-pink flex-1 py-2.5 text-sm">✨ Nuova frase</button>
-            <button id="fav-quote-btn" class="btn-outline px-5 py-2.5 text-base">❤️</button>
+          <div class="flex gap-3 mt-4">
+            <button id="new-quote-btn" class="btn-pink flex-1 py-3 text-base">✨ Nuova frase</button>
+            <button id="fav-quote-btn" class="btn-outline px-5 py-3 text-base">❤️</button>
           </div>
-          <div class="mt-3">
-            <div class="text-xs font-semibold text-gray-500 mb-2 text-center">Le tue preferite 💛</div>
-            <div id="fav-quotes" class="space-y-1.5 max-h-28 overflow-y-auto"></div>
+          <div class="mt-4">
+            <div class="text-sm font-semibold text-gray-500 mb-2 text-center">Le tue preferite 💛</div>
+            <div id="fav-quotes" class="space-y-2 max-h-32 overflow-y-auto"></div>
             <div id="fav-empty" class="text-center text-xs text-gray-400 italic">
               Clicca ❤️ per salvare una frase!
             </div>
@@ -124,26 +93,27 @@
       <section id="mel" class="snap-section text-center">
         <div class="card-section w-full max-w-lg mx-auto">
           <h2 class="section-title">🐱 La Divina Mel</h2>
-          <p class="text-gray-500 text-xs mb-2">La tua tifosa numero uno per il bando 😻</p>
-          <div id="mel-display" class="text-7xl mb-2 cursor-pointer select-none transition-transform hover:scale-110 active:scale-95 inline-block" title="Tocca Mel!">
+          <p class="text-gray-500 text-sm mb-4">La tua tifosa numero uno per il bando 😻</p>
+          <div id="mel-display" class="text-8xl sm:text-9xl mb-4 cursor-pointer select-none transition-transform hover:scale-110 active:scale-95 inline-block" title="Tocca Mel!">
             😺
           </div>
-          <div id="mel-message" class="text-sm font-semibold text-yellow-700 mb-3 min-h-[1.5rem]">
+          <div id="mel-message" class="text-base font-semibold text-yellow-700 mb-4 min-h-[2rem]">
             Ciao! Ti guardo studiare 👀
           </div>
-          <button id="mel-btn" class="btn-purple w-full py-3 text-lg mb-2">
+          <button id="mel-btn" class="btn-purple w-full py-4 text-xl mb-3">
             Accarezza Mel! 🐾
           </button>
           <div class="text-sm text-gray-500 mt-1">
             Coccole date: <span id="mel-count" class="font-bold text-yellow-600">0</span>
           </div>
-          <p class="text-yellow-600/50 text-xs mt-3">Made with 💛 per la futura AS più brava del mondo</p>
+          <p class="text-yellow-600/50 text-xs mt-6">Made with 💛 per la futura AS più brava del mondo</p>
         </div>
       </section>
 
     </div>
 
-        <!-- Particle Container -->
-    <div id="particles" class="fixed inset-0 pointer-events-none z-50"></div>
-  </body>
-</html>
+`
+
+html = html.slice(0, navbarEnd) + newSections + '    ' + html.slice(particlesStart)
+writeFileSync('index.html', html, 'utf8')
+console.log('index.html rewritten successfully')
