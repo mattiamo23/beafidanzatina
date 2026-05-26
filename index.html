@@ -2,178 +2,29 @@
 <html lang="it">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
-    <meta name="theme-color" content="#fde68a" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <title>Bea studia per il bando 📚✨</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="/assets/logo.svg">
-    <link rel="stylesheet" href="/src/style.css">
-    <script type="module" src="/src/main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>⭐</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #ffffff;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .star {
+        font-size: 80px;
+        line-height: 1;
+      }
+    </style>
   </head>
-  <body class="antialiased min-h-screen text-gray-800 overflow-x-hidden font-['Quicksand']" style="background: linear-gradient(135deg, #fffde7 0%, #fef9c3 35%, #fffbeb 70%, #fefce8 100%); padding-bottom: env(safe-area-inset-bottom);">
-
-    <!-- Animated floating blobs background -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-    </div>
-
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-50 navbar-glass" style="padding-top: env(safe-area-inset-top);">
-      <div class="max-w-4xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
-        <span class="text-base sm:text-xl font-bold font-['Fredoka'] text-yellow-600 truncate"><span id="logo-book">📚</span> Bea Fidanzatina</span>
-        <div class="flex gap-0 sm:gap-1 shrink-0">
-          <a href="#home" class="nav-link">🏠</a>
-          <a href="#timer" class="nav-link">⏱️</a>
-          <a href="#frasi" class="nav-link">💬</a>
-          <a href="#mel" class="nav-link">🐱</a>
-        </div>
-      </div>
-    </nav>
-
-    <div id="app" class="relative z-10">
-
-      <!-- ======= HOME ======= -->
-      <section id="home" class="snap-section text-center">
-        <div class="w-full max-w-lg mx-auto">
-          <div class="inline-block relative mb-4">
-            <div class="text-6xl sm:text-8xl animate-bounce-slow">📚</div>
-          </div>
-          <h1 class="text-4xl sm:text-5xl font-bold font-['Fredoka'] mb-3 leading-tight"
-              style="background: linear-gradient(90deg,#eab308,#facc15,#fde047); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
-            Ciao Bea! 🌸
-          </h1>
-          <p class="text-base sm:text-lg text-gray-600 font-medium mx-auto mb-8">
-            Il tuo angolino per sopravvivere al bando da assistente sociale ✨
-          </p>
-          <div class="flex flex-wrap justify-center gap-3">
-            <div class="mood-badge" style="--c:#fde68a;">☀️ Bando mode on</div>
-            <div class="mood-badge" style="--c:#fef08a;">🐈‍⬛ Mel approva</div>
-            <div class="mood-badge" style="--c:#fef9c3;">💛 Futura AS</div>
-            <div class="mood-badge" style="--c:#fcd34d;">✨ Ce la fai</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ======= TIMER POMODORO ======= -->
-      <section id="timer" class="snap-section timer-fullscreen">
-
-        <!-- Mode tabs -->
-        <div class="timer-mode-row">
-          <button class="tmode-btn active" data-mode="study" data-minutes="25">📖 Studio</button>
-          <button class="tmode-btn" data-mode="short" data-minutes="5">☕ Pausa</button>
-          <button class="tmode-btn" data-mode="long" data-minutes="15">🛌 Lunga</button>
-        </div>
-
-        <!-- Ring + display -->
-        <div id="timer-ring-wrap" class="timer-ring-wrap">
-          <svg class="timer-svg" viewBox="0 0 300 300" fill="none">
-            <circle class="t-track" cx="150" cy="150" r="130"/>
-            <circle id="timer-progress" class="t-fill" cx="150" cy="150" r="130"/>
-          </svg>
-          <div class="timer-center-display">
-            <div id="timer-phase-emoji" class="timer-phase-emoji">📖</div>
-            <div id="timer-display" class="timer-big-time">25:00</div>
-            <div id="timer-phase-label" class="timer-phase-label">Tocca per iniziare</div>
-          </div>
-        </div>
-
-        <!-- Auto-advance banner -->
-        <div id="timer-auto-banner" class="timer-auto-banner hidden">
-          <span id="timer-auto-text"></span>
-        </div>
-
-        <!-- Controls -->
-        <div class="timer-controls-row">
-          <button id="timer-reset" class="tctrl-btn tctrl-secondary" title="Reset">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-              <path d="M3 3v5h5"/>
-            </svg>
-          </button>
-          <button id="timer-start" class="tctrl-btn tctrl-main">
-            <svg id="btn-play-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="5,3 19,12 5,21"/>
-            </svg>
-            <svg id="btn-pause-icon" class="hidden" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-              <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
-            </svg>
-          </button>
-          <button id="timer-skip" class="tctrl-btn tctrl-secondary" title="Salta">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="5,4 15,12 5,20"/><line x1="19" y1="5" x2="19" y2="19"/>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Session progress -->
-        <div class="timer-session-row">
-          <div id="session-dots" class="flex gap-2"></div>
-          <span class="timer-session-label">
-            <span id="session-count">0</span> sessioni oggi
-          </span>
-          <button id="timer-stats-btn" class="tctrl-btn tctrl-secondary" style="width:36px;height:36px;font-size:1rem;" title="Statistiche">
-            📊
-          </button>
-        </div>
-
-      </section>
-
-      <!-- ======= FRASI MOTIVAZIONALI ======= -->
-      <section id="frasi" class="snap-section">
-        <div class="card-section w-full max-w-lg mx-auto">
-          <h2 class="section-title">💬 Frasi del Giorno</h2>
-          <p class="text-gray-500 text-xs mb-3 text-center">Un po' di carica per le fatiche del bando ⚡</p>
-          <div id="quote-card" class="quote-card">
-            <div id="quote-text" class="text-base sm:text-lg font-semibold text-center leading-relaxed text-gray-700 mb-2">
-              Premi il pulsante! 👇
-            </div>
-            <div id="quote-author" class="text-xs text-gray-400 text-center italic"></div>
-          </div>
-          <div class="flex gap-3 mt-3">
-            <button id="new-quote-btn" class="btn-pink flex-1 py-2.5 text-sm">✨ Nuova frase</button>
-            <button id="fav-quote-btn" class="btn-outline px-5 py-2.5 text-base">❤️</button>
-          </div>
-          <div class="mt-3">
-            <div class="text-xs font-semibold text-gray-500 mb-2 text-center">Le tue preferite 💛</div>
-            <div id="fav-quotes" class="space-y-1.5 max-h-28 overflow-y-auto"></div>
-            <div id="fav-empty" class="text-center text-xs text-gray-400 italic">
-              Clicca ❤️ per salvare una frase!
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ======= MEL ======= -->
-      <section id="mel" class="snap-section text-center">
-        <div class="card-section w-full max-w-lg mx-auto">
-          <h2 class="section-title">🐱 La Divina Mel</h2>
-          <p class="text-gray-500 text-xs mb-2">La tua tifosa numero uno per il bando 😻</p>
-          <div id="mel-display" class="text-7xl mb-2 cursor-pointer select-none transition-transform hover:scale-110 active:scale-95 inline-block" title="Tocca Mel!">
-            😺
-          </div>
-          <div id="mel-message" class="text-sm font-semibold text-yellow-700 mb-3 min-h-[1.5rem]">
-            Ciao! Ti guardo studiare 👀
-          </div>
-          <button id="mel-btn" class="btn-purple w-full py-3 text-lg mb-2">
-            Accarezza Mel! 🐾
-          </button>
-          <div class="text-sm text-gray-500 mt-1">
-            Coccole date: <span id="mel-count" class="font-bold text-yellow-600">0</span>
-          </div>
-          <p class="text-yellow-600/50 text-xs mt-3">Made with 💛 per la futura AS più brava del mondo</p>
-        </div>
-      </section>
-
-    </div>
-
-        <!-- Particle Container -->
-    <div id="particles" class="fixed inset-0 pointer-events-none z-50"></div>
+  <body>
+    <div class="star">⭐</div>
   </body>
 </html>
